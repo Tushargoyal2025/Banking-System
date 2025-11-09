@@ -1,0 +1,197 @@
+========================================
+BANKING SYSTEM - CODE FLOW EXPLANATION
+========================================
+
+OVERVIEW:
+---------
+This is a simple banking system program that allows users to:
+1. Create new bank accounts
+2. Deposit money into accounts
+3. Withdraw money from accounts
+4. Check account balance
+
+The program can handle up to 8 accounts at a time.
+
+========================================
+DATA STRUCTURES (Global Variables)
+========================================
+
+1. accno[8]        - Stores account numbers (long int array)
+2. accname[8][20]  - Stores account holder names (2D character array)
+3. balance[8]      - Stores account balances (long int array)
+4. pincode[8]      - Stores PIN codes for each account (long int array)
+5. accountCount    - Tracks how many accounts have been created (int)
+
+These are global variables, meaning they can be accessed from any function.
+
+========================================
+FUNCTIONS EXPLANATION
+========================================
+
+1. createaccount()
+   ----------------
+   Purpose: Creates a new bank account
+   
+   Flow:
+   1. Check if maximum accounts (8) reached
+   2. Get current index (accountCount)
+   3. Ask user for:
+      - Account Number
+      - Account Holder Name
+      - Initial Amount
+      - 4-digit PIN
+   4. Store all information in arrays at current index
+   5. Display confirmation message
+   6. Increment accountCount
+
+2. findAccount(long int accountNum)
+   ---------------------------------
+   Purpose: Searches for an account by account number
+   
+   Flow:
+   1. Loop through all existing accounts (0 to accountCount-1)
+   2. Compare each accno[i] with the given accountNum
+   3. If found, return the index (i)
+   4. If not found after checking all, return -1
+
+3. verifyPIN(int index, long int pin)
+   -----------------------------------
+   Purpose: Verifies if the entered PIN matches the account's PIN
+   
+   Flow:
+   1. Compare pincode[index] with the entered pin
+   2. Return 1 if match, 0 if no match
+
+4. deposit()
+   ----------
+   Purpose: Adds money to an account
+   
+   Flow:
+   1. Ask user for account number
+   2. Call findAccount() to locate the account
+   3. If account not found, show error and return
+   4. Ask user for amount to deposit
+   5. If amount is positive, add it to balance[index]
+   6. Display new balance
+
+5. withdraw()
+   -----------
+   Purpose: Removes money from an account
+   
+   Flow:
+   1. Ask user for account number
+   2. Call findAccount() to locate the account
+   3. If account not found, show error and return
+   4. Ask user for PIN
+   5. Call verifyPIN() to check if PIN is correct
+   6. If PIN is wrong, show error and return
+   7. Ask user for amount to withdraw
+   8. Check if amount is valid and balance is sufficient
+   9. If yes, subtract amount from balance[index]
+   10. Display remaining balance
+
+6. checkBalance()
+   ---------------
+   Purpose: Displays account information and balance
+   
+   Flow:
+   1. Ask user for account number
+   2. Call findAccount() to locate the account
+   3. If account not found, show error and return
+   4. Ask user for PIN
+   5. Call verifyPIN() to check if PIN is correct
+   6. If PIN is wrong, show error and return
+   7. Display account number, name, and current balance
+
+========================================
+MAIN FUNCTION FLOW
+========================================
+
+1. Program starts at main()
+2. Declare variable 'choice' to store user's menu selection
+3. Enter infinite loop (while(1))
+4. Display menu with 5 options
+5. Ask user to enter choice (1-5)
+6. Use switch statement to handle user's choice:
+   
+   Case 1: Call createaccount()
+   Case 2: Call deposit()
+   Case 3: Call withdraw()
+   Case 4: Call checkBalance()
+   Case 5: Display exit message and return 0 (end program)
+   Default: Show error for invalid choice
+
+7. After each function completes, loop continues and menu is shown again
+8. Program only exits when user chooses option 5
+
+========================================
+PROGRAM EXECUTION FLOW EXAMPLE
+========================================
+
+Step 1: Program starts
+       -> main() function executes
+       -> Menu is displayed
+
+Step 2: User selects option 1 (Create Account)
+       -> createaccount() is called
+       -> User enters account details
+       -> Account is stored in arrays
+       -> accountCount becomes 1
+       -> Returns to menu
+
+Step 3: User selects option 2 (Deposit)
+       -> deposit() is called
+       -> User enters account number
+       -> findAccount() searches for account
+       -> If found, user enters amount
+       -> Balance is updated
+       -> Returns to menu
+
+Step 4: User selects option 3 (Withdraw)
+       -> withdraw() is called
+       -> User enters account number
+       -> findAccount() searches for account
+       -> User enters PIN
+       -> verifyPIN() checks PIN
+       -> If correct, user enters amount
+       -> Balance is checked and updated
+       -> Returns to menu
+
+Step 5: User selects option 4 (Check Balance)
+       -> checkBalance() is called
+       -> User enters account number
+       -> findAccount() searches for account
+       -> User enters PIN
+       -> verifyPIN() checks PIN
+       -> If correct, balance is displayed
+       -> Returns to menu
+
+Step 6: User selects option 5 (Exit)
+       -> Exit message is displayed
+       -> return 0 executes
+       -> Program ends
+
+========================================
+KEY CONCEPTS USED
+========================================
+
+1. Arrays: Store multiple accounts' data
+2. Functions: Organize code into reusable blocks
+3. Loops: while(1) for continuous menu, for loop for searching
+4. Switch Statement: Handle different menu choices
+5. Global Variables: Share data across functions
+6. Return Values: Functions return -1 for not found, index for found
+7. Input/Output: scanf() for input, printf() for output
+
+========================================
+IMPORTANT NOTES
+========================================
+
+- Maximum 8 accounts can be created
+- Account data is stored in memory (lost when program closes)
+- PIN verification is required for withdraw and check balance
+- No file storage - data doesn't persist after program ends
+- Simple validation is done (positive amounts, sufficient balance)
+
+========================================
+
